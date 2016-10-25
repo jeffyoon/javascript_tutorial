@@ -1,0 +1,17 @@
+{
+    "build_systems":
+    [
+        {
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "name": "Node.js Builder",
+            "selector": "source.js",
+            "shell_cmd": "\"node\" \"$file\""
+        }
+    ],
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	]
+}
