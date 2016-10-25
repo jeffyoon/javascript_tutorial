@@ -1,0 +1,1 @@
+#Javascript Standard Coding Style.
