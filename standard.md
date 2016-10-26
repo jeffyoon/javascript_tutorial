@@ -30,11 +30,13 @@ $ standard "src/util/**/*.js" "test/**/*.js"
 First, install `standard`. Then, install the appropriate plugin for your editor.
 
 **Sublime Text**
+
 Using **Pakage Control**, install **SublimeLinter** and **SublimeLinter-contrib-standard**.
 
 For automatic formatting on save, install **[StandardFormat](https://packagecontrol.io/packages/StandardFormat)**
 
 **Vim**
+
 Install **Syntastic** and add this line to `.vimrc`:
 ```
 let g:syntastic_javascript_checkers = ['standard']
@@ -51,9 +53,11 @@ set autoread
 ```
 
 **Visual Studio Code**
+
 Install **vscode-standardjs**. (Includes support for automatic formatting.)
 
 **Atom**
+
 Install **[linter-js-standard](https://atom.io/packages/linter-js-standard)**.
 
 For automatic formatting, install **[standard-formatter](https://atom.io/packages/standard-formatter)**. For snippets, install **[standardjs-snippets](https://atom.io/packages/standardjs-snippets)**.
