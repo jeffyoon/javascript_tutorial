@@ -27,4 +27,4 @@ First, install `standard`. Then, install the appropriate plugin for your editor.
 
 **Sublime Text**
 Using **Pakage Control**, install **SublimeLinter** and **SublimeLinter-contrib-standard**.
-For automatic formatting on save, install **[StandardFormat]**(https://packagecontrol.io/packages/StandardFormat)
+For automatic formatting on save, install **[StandardFormat](https://packagecontrol.io/packages/StandardFormat)**
