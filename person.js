@@ -5,6 +5,12 @@ function Person (name, age, sex) {
   this._name = name
   this._age = age
   this._sex = sex
+
+  this.on('change', (name, age, sex) => {
+    this.changeName(name)
+    this.changeAge(age)
+    this.changeSex(sex)
+  })
 }
 
 util.inherits(Person, events.EventEmitter)
