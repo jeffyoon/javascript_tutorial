@@ -1,26 +1,28 @@
 # Block Binding
 ## 1.1 var declare and hoisting
 
-Variables declared using the var keyword are treated as if they were at the top of the function, regardless of where they were declared.
+Variable declarations using var keyword are treated as if they're at the top of the function (or in the global scope, if declared outside of a function) regardless of where the actual declaration occurs.
 This is called `hoisting`.
 
+For a demonstration of what hoisting does, consider the following function definition:
 ``` javascript
 function getValue(condition) {
    if (condition) {
       var value = "blue";
-      // Rest of the code
+      // other code
       return value;
    }
    else {
-      // value exists as undefined here
+      // value exists here with a value of undefined
       return null;
    }
 
-   // value exists as undefined here
+   // value exists here with a value of undefined
 }
 ```
 
-If we are not familiar with javascript, we expect that the value is created if the condition is true, but the javascript engine changes the code above to the following code.
+If you are not familiar with javascript, you might expect the variable value to be created only if condition evaluates to true.
+In fact, the variable value is created regardless. Behind the scenes, the javascript engine changes the getValue function to look like this:
 
 ``` javascript
 function getValue(condition) {
@@ -28,34 +30,39 @@ function getValue(condition) {
 
    if (condition) {
       value = "blue";
-      // Rest of the code
+      // other code
       return value;
    }
    else {
       return null
    }
 }
-
 ```
 
-## 1.2 Block-level declaration
-Block-level declaration means that variable that can't access from the outside of block scope.
+The declaration of value is hoisted to the top, and the initialization remains in the same spot.
+That means the variable value is still accessible from within the `else` clause.
+If accessed from the else clause, the variable would just have a value of `undefined` because it hasn't been initialized in the `else` block.
 
-Block scope is created in the following places:
-* Inner space of function
-* Inner space of block (specified using { and })
+## 1.2 Block-Level Declarations
+Block-level declarations declare bindings that are inaccessible outside a given block scope.
 
-The C language uses the block scope and javascript also uses it as well in the latest ECMAScript 6.
+`Block scopes`, also called `lexical scopes`, are created in the following places:
 
-### 1.2.1 let declaration
+* Inside function
+* Inside a block (indicated by the { and } characters)
+
+Block scoping is how many C-based languages work, and the introduction of block-level declarations in ECMAScript 6 is intended to provide that same flexibility (and uniformity) to JavaScript.
+
+### 1.2.1 let declarations
 
 Variables declared using the `let` keyword can only be used at code block scope.
+The let declarations are not hoisted to the top of the enclosing block, it's best to place let declarations first in the block so they're available to the entire block.
 
 ``` javascript
 function getValue(condition) {
    if (condition) {
       let value = "blue";
-      // Rest of the code
+      // other code
       return value;
    } else {
       // value does not exist here, because `let` do not permit hoisting.
@@ -65,6 +72,7 @@ function getValue(condition) {
    // value does not exist here
 }
 ```
+This version of the `getValue` function behaves more similarly to how you'd expect it to in other C-based languages. Because the variable value is declared using `let` instead of `var`, the declaration isn't hoisted to the top of the function definition, and the variable value is no longer accessible once execution flows out of the `if` block. If `condition` evaluates to `false`, then value is never declared or initialized.
 
 ### 1.2.2 const declaration
 
@@ -125,8 +133,10 @@ if (condition) {
 }
 ```
 
-코드를 해석할때 자바스크립트 엔진은 다음 블록을 조사하고 그 블록에서 변수 선언을 발견하면, 그 선언을 (var 의 경우에는) 함수 최상단이나 전역 스코프로 호이스팅 하거나 (let, const 의 경우에는) TDZ 내에 배치한다. TDZ 안의 변수에 접근하려 하면, 런타임 에러가 발생한다.
-변수 선언이 실행된 후에만 TDZ 에서 변수가 제거되며, 안전하게 사용할수 있다.
+When a Javascript engine looks through an upcoming block and finds a variable declaration, it either hoists the declaration to the top of the function or global scope (for var) or places the declaeation in TDZ (for let and const).
+Any attempt to access a variable in the TDZ results in a runtime error.
+That varibale is only removed from the TDZ, and therefore is safe to use, once execution flows to the variable declaration.
+
 
 ``` javascript
 console.log(typeof value);    // "undefined"
